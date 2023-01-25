@@ -1,28 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 export default function Login() {
   const [infos, setInfos] = useState({
-    isButtonDisabled: true,
     email: '',
     password: '',
   });
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-  const loginInputValidation = () => {
+  const loginInputValidation = useCallback(() => {
     const passwordLength = 6;
     const emailFormat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     const emailValid = infos.email.match(emailFormat);
     if (emailValid && infos.password.length > passwordLength) {
-      setInfos({
-        ...infos,
-        isButtonDisabled: false,
-      });
+      setIsButtonDisabled(false);
     } else {
-      setInfos({
-        ...infos,
-        isButtonDisabled: true,
-      });
+      setIsButtonDisabled(true);
     }
-  };
+  }, [infos.email, infos.password.length]);
 
   const handleValidation = (event) => {
     setInfos({
@@ -31,9 +25,13 @@ export default function Login() {
     });
   };
 
+  const handleClick = () => {
+    localStorage.setItem('user', JSON.stringify({ email: infos.email }));
+  };
+
   useEffect(() => {
     loginInputValidation();
-  }, [infos]);
+  }, [loginInputValidation, infos]);
 
   return (
     <form>
@@ -58,8 +56,8 @@ export default function Login() {
       <button
         data-testid="login-submit-btn"
         type="button"
-        disabled={ infos.isButtonDisabled }
-        // onClick= { handleClick }
+        disabled={ isButtonDisabled }
+        onClick={ handleClick }
       >
         Entrar
       </button>
