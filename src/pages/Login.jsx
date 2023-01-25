@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 export default function Login() {
   const [infos, setInfos] = useState({
@@ -6,6 +7,7 @@ export default function Login() {
     password: '',
   });
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const history = useHistory();
 
   const loginInputValidation = useCallback(() => {
     const passwordLength = 6;
@@ -27,6 +29,8 @@ export default function Login() {
 
   const handleClick = () => {
     localStorage.setItem('user', JSON.stringify({ email: infos.email }));
+
+    history.push('/meals');
   };
 
   useEffect(() => {
