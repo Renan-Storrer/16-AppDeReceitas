@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Recipes(props) {
   const { title } = props;
@@ -8,6 +9,7 @@ function Recipes(props) {
   return (
     <div>
       <Header title={ title } profile search />
+      <Footer />
     </div>
   );
 }
