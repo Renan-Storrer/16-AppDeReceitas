@@ -1,19 +1,28 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function useSearch() {
   const [url, setUrl] = useState('');
+  const history = useHistory();
 
   const fetchApi = useCallback(async () => {
     const response = await fetch(url);
     const json = await response.json();
+
+    if (json.meals && json.meals.length === 1) {
+      history.push(`/meals/${json.meals[0].idMeal}`);
+    } else if (json.drinks && json.drinks.length === 1) {
+      history.push(`/drinks/${json.drinks[0].idDrink}`);
+    }
+
     return json;
-  }, [url]);
+  }, [url, history]);
 
   const handleSearch = (parameters) => {
     const { searchInput, radioInput, pathname } = parameters;
     let category = '';
 
-    if (pathname === '/meals') category = 'themealdb';
+    if (pathname.includes('meals')) category = 'themealdb';
     else category = 'thecocktaildb';
 
     switch (radioInput) {

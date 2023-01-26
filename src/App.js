@@ -33,23 +33,23 @@ function App() {
         />
         <Route
           exact
-          path="/meals/:id-da-receita"
-          render={ (props) => <RecipeDetails { ...props } /> }
+          path="/meals/:id"
+          component={ RecipeDetails }
         />
         <Route
           exact
-          path="/drinks/:id-da-receita"
-          render={ (props) => <RecipeDetails { ...props } /> }
+          path="/drinks/:id"
+          component={ RecipeDetails }
         />
         <Route
           exact
-          path="/meals/:id-da-receita/in-progress"
-          render={ (props) => <RecipeInProgress { ...props } /> }
+          path="/meals/:id/in-progress"
+          component={ RecipeInProgress }
         />
         <Route
           exact
-          path="/drinks/:id-da-receita/in-progress"
-          render={ (props) => <RecipeInProgress { ...props } /> }
+          path="/drinks/:id/in-progress"
+          component={ RecipeInProgress }
         />
         <Route
           exact
