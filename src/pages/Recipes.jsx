@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import SearchContext from '../context/SearchContext';
 import RecipeCard from '../components/RecipeCard';
+import CategoriesButtons from '../components/CategoriesButtons';
 
 function Recipes(props) {
   const { title } = props;
@@ -13,6 +14,7 @@ function Recipes(props) {
   return (
     <div>
       <Header title={ title } profile search />
+      <CategoriesButtons title={ title } />
       { title.toLowerCase() in searchResult && searchResult[title.toLowerCase()]
         .map((recipe, index) => {
           if (index > MAX_LENGTH) return;
