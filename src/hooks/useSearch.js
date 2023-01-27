@@ -55,17 +55,13 @@ function useSearch() {
   };
 
   useEffect(() => {
-    if (history.location.pathname === ('/meals')) {
-      setUrl('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-    }
-
     if (history.location.pathname === ('/drinks')) {
       setUrl('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     }
   }, [history.location.pathname]);
 
   useEffect(() => {
-    if (url) fetchApi();
+    fetchApi();
   }, [fetchApi, url]);
 
   return {
