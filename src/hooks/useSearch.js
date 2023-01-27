@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 function useSearch() {
   const [url, setUrl] = useState('');
+  const [searchResult, setSearchResult] = useState({});
   const history = useHistory();
 
   const fetchApi = useCallback(async () => {
@@ -11,6 +12,7 @@ function useSearch() {
 
     if (json.meals === null || json.drinks === null) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      return;
     }
 
     if (json.meals && json.meals.length === 1) {
@@ -19,7 +21,7 @@ function useSearch() {
       history.push(`/drinks/${json.drinks[0].idDrink}`);
     }
 
-    return json;
+    setSearchResult(json);
   }, [url, history]);
 
   const handleSearch = (parameters) => {
@@ -58,6 +60,7 @@ function useSearch() {
 
   return {
     handleSearch,
+    searchResult,
   };
 }
 

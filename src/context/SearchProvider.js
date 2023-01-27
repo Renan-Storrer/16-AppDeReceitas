@@ -4,9 +4,12 @@ import useSearch from '../hooks/useSearch';
 import SearchContext from './SearchContext';
 
 function SearchProvider({ children }) {
-  const { handleSearch } = useSearch();
+  const { handleSearch, searchResult } = useSearch();
 
-  const value = useMemo(() => ({ handleSearch }), [handleSearch]);
+  const value = useMemo(() => ({
+    handleSearch,
+    searchResult,
+  }), [handleSearch, searchResult]);
 
   return (
     <SearchContext.Provider value={ value }>
