@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import SearchContext from '../context/SearchContext';
 
 import searchIcon from '../images/searchIcon.svg';
@@ -9,8 +8,6 @@ function SearchBar() {
   const [searchInput, setSearchInput] = useState('');
   const [radioInput, setRadioInput] = useState();
   const { handleSearch } = useContext(SearchContext);
-  const history = useHistory();
-  const { pathname } = history.location;
 
   const handleSearchButton = () => {
     setShowSearchBar(!showSearchBar);
@@ -81,7 +78,7 @@ function SearchBar() {
           </div>
           <button
             data-testid="exec-search-btn"
-            onClick={ () => handleSearch({ searchInput, radioInput, pathname }) }
+            onClick={ () => handleSearch({ searchInput, radioInput }) }
           >
             Search
           </button>

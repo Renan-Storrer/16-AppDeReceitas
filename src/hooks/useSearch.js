@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 function useSearch() {
   const [searchResult, setSearchResult] = useState({});
+  const [url, setUrl] = useState('');
   const history = useHistory();
-  const [url, setUrl] = useState('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  const location = useLocation();
 
   const fetchApi = useCallback(async () => {
     const response = await fetch(url);
@@ -25,10 +26,10 @@ function useSearch() {
   }, [url, history]);
 
   const handleSearch = (parameters) => {
-    const { searchInput, radioInput, pathname } = parameters;
+    const { searchInput, radioInput } = parameters;
     let category = '';
 
-    if (pathname.includes('meals')) category = 'themealdb';
+    if (location.pathname.includes('meals')) category = 'themealdb';
     else category = 'thecocktaildb';
 
     switch (radioInput) {
@@ -55,13 +56,13 @@ function useSearch() {
   };
 
   useEffect(() => {
-    if (history.location.pathname === ('/drinks')) {
+    if (location.pathname === ('/drinks')) {
       setUrl('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-    }
-  }, [history.location.pathname]);
+    } else setUrl('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  }, [location.pathname]);
 
   useEffect(() => {
-    fetchApi();
+    if (url) fetchApi();
   }, [fetchApi, url]);
 
   return {

@@ -15,7 +15,7 @@ function CategoriesButtons(props) {
   const fetchApi = useCallback(async () => {
     const response = await fetch(url);
     const json = await response.json();
-    console.log(json);
+
     if (json.meals) setResults(json.meals);
     else setResults(json.drinks);
   }, [url]);
