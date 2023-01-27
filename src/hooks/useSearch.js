@@ -9,6 +9,10 @@ function useSearch() {
     const response = await fetch(url);
     const json = await response.json();
 
+    if (json.meals === null || json.drinks === null) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
+
     if (json.meals && json.meals.length === 1) {
       history.push(`/meals/${json.meals[0].idMeal}`);
     } else if (json.drinks && json.drinks.length === 1) {
