@@ -2,9 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 function useSearch() {
-  const [url, setUrl] = useState('');
   const [searchResult, setSearchResult] = useState({});
   const history = useHistory();
+  const [url, setUrl] = useState('https://www.themealdb.com/api/json/v1/1/search.php?s=');
 
   const fetchApi = useCallback(async () => {
     const response = await fetch(url);
@@ -53,6 +53,16 @@ function useSearch() {
       break;
     }
   };
+
+  useEffect(() => {
+    if (history.location.pathname === ('/meals')) {
+      setUrl('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    }
+
+    if (history.location.pathname === ('/drinks')) {
+      setUrl('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    }
+  }, [history.location.pathname]);
 
   useEffect(() => {
     if (url) fetchApi();
