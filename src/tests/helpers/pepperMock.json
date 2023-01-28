@@ -1,0 +1,149 @@
+{
+  "meals": [
+    {
+      "strMeal": "Beef Lo Mein",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/1529444830.jpg",
+      "idMeal": "52952"
+    },
+    {
+      "strMeal": "Big Mac",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/urzj1d1587670726.jpg",
+      "idMeal": "53013"
+    },
+    {
+      "strMeal": "Bitterballen (Dutch meatballs)",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/lhqev81565090111.jpg",
+      "idMeal": "52979"
+    },
+    {
+      "strMeal": "Breakfast Potatoes",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/1550441882.jpg",
+      "idMeal": "52965"
+    },
+    {
+      "strMeal": "Burek",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/tkxquw1628771028.jpg",
+      "idMeal": "53060"
+    },
+    {
+      "strMeal": "Chicken Alfredo Primavera",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/syqypv1486981727.jpg",
+      "idMeal": "52796"
+    },
+    {
+      "strMeal": "Chicken Congee",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/1529446352.jpg",
+      "idMeal": "52956"
+    },
+    {
+      "strMeal": "Chivito uruguayo",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/n7qnkb1630444129.jpg",
+      "idMeal": "53063"
+    },
+    {
+      "strMeal": "Crispy Sausages and Greens",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/st1ifa1583267248.jpg",
+      "idMeal": "52999"
+    },
+    {
+      "strMeal": "Egg Drop Soup",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/1529446137.jpg",
+      "idMeal": "52955"
+    },
+    {
+      "strMeal": "Fish fofos",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/a15wsa1614349126.jpg",
+      "idMeal": "53043"
+    },
+    {
+      "strMeal": "Hot and Sour Soup",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/1529445893.jpg",
+      "idMeal": "52954"
+    },
+    {
+      "strMeal": "Kafteji",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/1bsv1q1560459826.jpg",
+      "idMeal": "52971"
+    },
+    {
+      "strMeal": "Leblebi Soup",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/x2fw9e1560460636.jpg",
+      "idMeal": "52973"
+    },
+    {
+      "strMeal": "Ma Po Tofu",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/1525874812.jpg",
+      "idMeal": "52947"
+    },
+    {
+      "strMeal": "McSinghs Scotch pie",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/vssrtx1511557680.jpg",
+      "idMeal": "52880"
+    },
+    {
+      "strMeal": "Mediterranean Pasta Salad",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/wvqpwt1468339226.jpg",
+      "idMeal": "52777"
+    },
+    {
+      "strMeal": "Pate Chinois",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/yyrrxr1511816289.jpg",
+      "idMeal": "52930"
+    },
+    {
+      "strMeal": "Recheado Masala Fish",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/uwxusv1487344500.jpg",
+      "idMeal": "52809"
+    },
+    {
+      "strMeal": "Roasted Eggplant With Tahini, Pine Nuts, and Lentils",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/ysqrus1487425681.jpg",
+      "idMeal": "52816"
+    },
+    {
+      "strMeal": "Roti john",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/hx335q1619789561.jpg",
+      "idMeal": "53052"
+    },
+    {
+      "strMeal": "Shrimp Chow Fun",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/1529445434.jpg",
+      "idMeal": "52953"
+    },
+    {
+      "strMeal": "Sledz w Oleju (Polish Herrings)",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/7ttta31593350374.jpg",
+      "idMeal": "53023"
+    },
+    {
+      "strMeal": "Spicy North African Potato Salad",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/urtwux1486983078.jpg",
+      "idMeal": "52797"
+    },
+    {
+      "strMeal": "Stamppot",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/hyarod1565090529.jpg",
+      "idMeal": "52980"
+    },
+    {
+      "strMeal": "Steak and Kidney Pie",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/qysyss1511558054.jpg",
+      "idMeal": "52881"
+    },
+    {
+      "strMeal": "Szechuan Beef",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/1529443236.jpg",
+      "idMeal": "52950"
+    },
+    {
+      "strMeal": "Traditional Croatian Goulash",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/n1hcou1628770088.jpg",
+      "idMeal": "53057"
+    },
+    {
+      "strMeal": "Vietnamese Grilled Pork (bun-thit-nuong)",
+      "strMealThumb": "https://www.themealdb.com/images/media/meals/qqwypw1504642429.jpg",
+      "idMeal": "52828"
+    }
+  ]
+}
