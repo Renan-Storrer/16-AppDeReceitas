@@ -3,7 +3,7 @@ import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
 
-import renderWithRouter from './renderWithRouter/renderWithRouter';
+import renderWithRouterAndContext from './renderWithRouter/renderWithRouterAndContext';
 import App from '../App';
 import Login from '../pages/Login';
 
@@ -52,7 +52,7 @@ it('verifica se o botão é habilitado', () => {
 });
 
 it('verifica se é redirecionado para /meals quando clica em entrar', () => {
-  const { history } = renderWithRouter(<App />);
+  const { history } = renderWithRouterAndContext(<App />);
   const renderEmail = screen.getByTestId(email);
   const renderPassword = screen.getByTestId(password);
   const renderButton = screen.getByRole('button', {

@@ -1,9 +1,8 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { screen, act } from '@testing-library/react';
-import renderWithRouter from './renderWithRouter/renderWithRouter';
+import renderWithRouterAndContext from './renderWithRouter/renderWithRouterAndContext';
 import App from '../App';
-import SearchProvider from '../context/SearchProvider';
 
 const DONE_BUTTON = 'profile-done-btn';
 const FAVORITE_BUTTON = 'profile-favorite-btn';
@@ -15,7 +14,7 @@ const passwordTest = '0123456';
 
 describe('Testes do componente Profile', () => {
   it('Verifica que o Profile possui as informações corretas nas páginas da aplicação', () => {
-    const { history } = renderWithRouter(<SearchProvider><App /></SearchProvider>);
+    const { history } = renderWithRouterAndContext(<App />);
 
     userEvent.type(screen.getByTestId(email), emailTest);
     userEvent.type(screen.getByTestId(password), passwordTest);
