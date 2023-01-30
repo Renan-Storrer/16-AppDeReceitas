@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import renderWithRouter from './renderWithRouter/renderWithRouter';
+import renderWithRouterAndContext from './renderWithRouter/renderWithRouterAndContext';
 import App from '../App';
 
 describe('Testes do componente Footer', () => {
@@ -8,11 +8,11 @@ describe('Testes do componente Footer', () => {
   const userPassword = 'supersecurepassword';
 
   test('se os ícones são carregados corretamente na tela e se direcionam para o caminho carreto', () => {
-    const { history } = renderWithRouter(<App />);
+    const { history } = renderWithRouterAndContext(<App />);
     const emailInput = screen.getByRole('textbox');
-    const passwordInput = screen.getByPlaceholderText(/password/i);
+    const passwordInput = screen.getByPlaceholderText(/senha/i);
     const buttonEnter = screen.getByRole('button', {
-      name: /enter/i,
+      name: /entrar/i,
     });
 
     userEvent.type(emailInput, userEmail);

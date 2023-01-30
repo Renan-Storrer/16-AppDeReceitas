@@ -1,10 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 function useSearch() {
+  const location = useLocation();
+  const { pathname } = location;
+  const history = useHistory();
+
   const [url, setUrl] = useState('');
   const [searchResult, setSearchResult] = useState({});
-  const history = useHistory();
 
   const fetchApi = useCallback(async () => {
     const response = await fetch(url);
@@ -15,9 +18,11 @@ function useSearch() {
       return;
     }
 
-    if (json.meals && json.meals.length === 1) {
+    const filter = url.includes('filter.php?c=');
+
+    if (json.meals && json.meals.length === 1 && !filter) {
       history.push(`/meals/${json.meals[0].idMeal}`);
-    } else if (json.drinks && json.drinks.length === 1) {
+    } else if (json.drinks && json.drinks.length === 1 && !filter) {
       history.push(`/drinks/${json.drinks[0].idDrink}`);
     }
 
@@ -25,7 +30,7 @@ function useSearch() {
   }, [url, history]);
 
   const handleSearch = (parameters) => {
-    const { searchInput, radioInput, pathname } = parameters;
+    const { searchInput, radioInput } = parameters;
     let category = '';
 
     if (pathname.includes('meals')) category = 'themealdb';
@@ -54,6 +59,25 @@ function useSearch() {
     }
   };
 
+  const handleFilters = (filter) => {
+    let category = '';
+
+    if (pathname.includes('meals')) category = 'themealdb';
+    else category = 'thecocktaildb';
+
+    const filterUrl = `https://www.${category}.com/api/json/v1/1/filter.php?c=${filter}`;
+
+    if (filterUrl === url) {
+      setUrl(`https://www.${category}.com/api/json/v1/1/search.php?s=`);
+    } else setUrl(filterUrl);
+  };
+
+  useEffect(() => {
+    if (pathname === ('/drinks')) {
+      setUrl('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    } else setUrl('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  }, [pathname]);
+
   useEffect(() => {
     if (url) fetchApi();
   }, [fetchApi, url]);
@@ -61,6 +85,7 @@ function useSearch() {
   return {
     handleSearch,
     searchResult,
+    handleFilters,
   };
 }
 

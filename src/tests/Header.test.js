@@ -3,7 +3,7 @@ import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { screen, act } from '@testing-library/react';
 
-import renderWithRouter from './renderWithRouter/renderWithRouter';
+import renderWithRouterAndContext from './renderWithRouter/renderWithRouterAndContext';
 import App from '../App';
 import Header from '../components/Header';
 
@@ -13,7 +13,7 @@ const PAGE_TITLE = 'page-title';
 
 describe('Testes do componente Header', () => {
   it('Verifica que o Header possui as informações corretas nas páginas da aplicação', () => {
-    const { history } = renderWithRouter(<App />);
+    const { history } = renderWithRouterAndContext(<App />);
 
     act(() => {
       history.push('/meals');
@@ -108,7 +108,7 @@ describe('Testes do componente Header', () => {
   });
 
   it('Verifica se o botão de profile leva à página correta', () => {
-    const { history } = renderWithRouter(<Header profile />);
+    const { history } = renderWithRouterAndContext(<Header profile />);
 
     const profileButton = screen.getByTestId(PROFILE_BUTTON);
     userEvent.click(profileButton);
@@ -117,7 +117,7 @@ describe('Testes do componente Header', () => {
   });
 
   it('Verifica se o botão de busca funciona corretamente', () => {
-    renderWithRouter(<Header search />);
+    renderWithRouterAndContext(<Header search />);
 
     let searchBar = screen.queryByTestId('search-input');
 
