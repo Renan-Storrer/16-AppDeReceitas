@@ -2,10 +2,12 @@ import { useCallback, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 function useSearch() {
-  const [searchResult, setSearchResult] = useState({});
-  const [url, setUrl] = useState('');
-  const history = useHistory();
   const location = useLocation();
+  const { pathname } = location;
+  const history = useHistory();
+
+  const [url, setUrl] = useState('');
+  const [searchResult, setSearchResult] = useState({});
 
   const fetchApi = useCallback(async () => {
     const response = await fetch(url);
@@ -16,9 +18,11 @@ function useSearch() {
       return;
     }
 
-    if (json.meals && json.meals.length === 1) {
+    const filter = url.includes('filter.php?c=');
+
+    if (json.meals && json.meals.length === 1 && !filter) {
       history.push(`/meals/${json.meals[0].idMeal}`);
-    } else if (json.drinks && json.drinks.length === 1) {
+    } else if (json.drinks && json.drinks.length === 1 && !filter) {
       history.push(`/drinks/${json.drinks[0].idDrink}`);
     }
 
@@ -29,7 +33,7 @@ function useSearch() {
     const { searchInput, radioInput } = parameters;
     let category = '';
 
-    if (location.pathname.includes('meals')) category = 'themealdb';
+    if (pathname.includes('meals')) category = 'themealdb';
     else category = 'thecocktaildb';
 
     switch (radioInput) {
@@ -55,11 +59,22 @@ function useSearch() {
     }
   };
 
+  const handleFilters = (filter) => {
+    let category = '';
+
+    if (pathname.includes('meals')) category = 'themealdb';
+    else category = 'thecocktaildb';
+
+    const filterUrl = `https://www.${category}.com/api/json/v1/1/filter.php?c=${filter}`;
+
+    setUrl(filterUrl);
+  };
+
   useEffect(() => {
-    if (location.pathname === ('/drinks')) {
+    if (pathname === ('/drinks')) {
       setUrl('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     } else setUrl('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-  }, [location.pathname]);
+  }, [pathname]);
 
   useEffect(() => {
     if (url) fetchApi();
@@ -68,6 +83,7 @@ function useSearch() {
   return {
     handleSearch,
     searchResult,
+    handleFilters,
   };
 }
 

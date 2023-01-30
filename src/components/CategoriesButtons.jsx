@@ -1,9 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import SearchContext from '../context/SearchContext';
 
 function CategoriesButtons(props) {
   const [results, setResults] = useState([]);
   const { title } = props;
+  const { handleFilters, handleSearch } = useContext(SearchContext);
   let url = '';
 
   if (title === 'Meals') {
@@ -30,6 +32,7 @@ function CategoriesButtons(props) {
     <button
       key={ `category-${index}` }
       data-testid={ `${category}-category-filter` }
+      onClick={ () => handleFilters(category) }
     >
       { category }
     </button>
@@ -40,6 +43,13 @@ function CategoriesButtons(props) {
       { results
         .map((category, index) => (index <= MAX_LENGTH)
         && buttonFunction(index, category.strCategory)) }
+      <button
+        key="category-all"
+        data-testid="All-category-filter"
+        onClick={ () => handleSearch({ searchInput: '', radioInput: 'Name' }) }
+      >
+        All
+      </button>
     </div>
   );
 }
