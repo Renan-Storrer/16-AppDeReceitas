@@ -67,7 +67,9 @@ function useSearch() {
 
     const filterUrl = `https://www.${category}.com/api/json/v1/1/filter.php?c=${filter}`;
 
-    setUrl(filterUrl);
+    if (filterUrl === url) {
+      setUrl(`https://www.${category}.com/api/json/v1/1/search.php?s=`);
+    } else setUrl(filterUrl);
   };
 
   useEffect(() => {
