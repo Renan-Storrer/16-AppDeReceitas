@@ -15,7 +15,8 @@ function Recipes(props) {
     <div>
       <Header title={ title } profile search />
       <CategoriesButtons title={ title } />
-      { title.toLowerCase() in searchResult && searchResult[title.toLowerCase()]
+      { searchResult
+      && title.toLowerCase() in searchResult && searchResult[title.toLowerCase()]
         .map((recipe, index) => {
           if (index > MAX_LENGTH) return;
           return (<RecipeCard

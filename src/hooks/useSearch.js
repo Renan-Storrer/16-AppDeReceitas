@@ -13,16 +13,16 @@ function useSearch() {
     const response = await fetch(url);
     const json = await response.json();
 
-    if (json.meals === null || json.drinks === null) {
+    if (json?.meals === null || json?.drinks === null) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
       return;
     }
 
     const filter = url.includes('filter.php?c=');
 
-    if (json.meals && json.meals.length === 1 && !filter) {
+    if (json?.meals && json?.meals.length === 1 && !filter) {
       history.push(`/meals/${json.meals[0].idMeal}`);
-    } else if (json.drinks && json.drinks.length === 1 && !filter) {
+    } else if (json?.drinks && json?.drinks.length === 1 && !filter) {
       history.push(`/drinks/${json.drinks[0].idDrink}`);
     }
 
