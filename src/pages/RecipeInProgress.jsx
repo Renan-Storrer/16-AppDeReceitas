@@ -32,7 +32,22 @@ function RecipeInProgress(props) {
     if (url) fetchApi();
   }, [fetchApi, url]);
 
-  // console.log(recipe);
+  // function ingredientsList() {
+  //   const ingredients = [];
+  //   const numbers = [];
+  //   const size = 20;
+  //   for (let i = 1; i < size; i += 1) {
+  //     numbers.push(i);
+  //   }
+  //   numbers.forEach((numero) => {
+  //     ingredients.push({
+  //       name: recipe[`strIngredient${numero}`],
+  //       medida: recipe[`strMeasure${numero}`],
+  //     });
+  //   });
+  //   return ingredients;
+  // }
+
   return (
     <div>
       <h1 data-testid="recipe-title">Recipe in Progress</h1>
@@ -42,6 +57,9 @@ function RecipeInProgress(props) {
         data-testid="recipe-photo"
         width="400px"
       />
+
+      <br />
+
       <button
         type="button"
         data-testid="share-btn"
@@ -65,6 +83,19 @@ function RecipeInProgress(props) {
       </button>
 
       <h5 data-testid="instructions">{ recipe.strInstructions }</h5>
+
+      <br />
+
+      {/* { ingredientsList.map((ingredient, index) => (
+        <label
+          htmlFor={ `input${index}` }
+          data-testid={ `${index}-ingredient-step` }
+          key={ index }
+        >
+          <input type="checkbox" name={ `input${index}` } />
+          { ingredient }
+        </label>
+      ))} */}
 
       <button
         type="button"
