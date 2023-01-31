@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
+import SearchContext from '../context/SearchContext';
 
 function RecipeDetails(props) {
   const { match } = props;
@@ -10,6 +11,7 @@ function RecipeDetails(props) {
   const [recipe, setRecipe] = useState({});
   const [category, setCategory] = useState('');
   const [keyName, setKeyName] = useState('');
+  const { searchResult } = useContext(SearchContext);
   const YT = 32;
 
   const fetchApi = useCallback(async () => {
@@ -33,7 +35,6 @@ function RecipeDetails(props) {
   useEffect(() => {
     if (url) fetchApi();
   }, [fetchApi, url]);
-  console.log(recipe);
 
   const ingredients = [];
 
@@ -70,7 +71,7 @@ function RecipeDetails(props) {
             data-testid={ `${i}-ingredient-name-and-measure` }
           >
             <strong>{ingredient.measure}</strong>
-            { ingredient.measure && 'of ' }
+            { ingredient.measure && ' of ' }
             {ingredient.ingredient}
           </li>))}
       </ul>
