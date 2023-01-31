@@ -12,7 +12,7 @@ function useSearch() {
   const fetchApi = useCallback(async () => {
     const response = await fetch(url);
     const json = await response.json();
-    console.log(json);
+
     if (json?.meals === null || json?.drinks === null) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
       return;
