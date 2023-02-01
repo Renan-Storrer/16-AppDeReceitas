@@ -85,6 +85,25 @@ function RecipeDetails(props) {
     }
   }, [category, location.pathname]);
 
+  const handleFavorites = () => {
+    let favorites = [];
+    const favorite = {
+      id,
+      type: keyName.toLowerCase(),
+      nationality: recipe.strArea || '',
+      category: recipe.strCategory,
+      alcoholicOrNot: recipe?.strAlcoholic || '',
+      name: recipe[`str${keyName}`],
+      image: recipe[`str${keyName}Thumb`],
+    };
+    console.log(favorite);
+    if (localStorage.getItem('favoriteRecipes')) {
+      favorites = [...JSON.parse(localStorage.getItem('favoriteRecipes'))];
+    }
+    favorites.push(favorite);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
+  };
+
   return (
     <>
       { ingredients && (
@@ -143,6 +162,7 @@ function RecipeDetails(props) {
         <button
           type="button"
           data-testid="favorite-btn"
+          onClick={ handleFavorites }
         >
           Add to Favorites
         </button>
