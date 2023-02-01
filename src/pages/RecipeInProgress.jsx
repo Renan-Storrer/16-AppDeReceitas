@@ -32,21 +32,22 @@ function RecipeInProgress(props) {
     if (url) fetchApi();
   }, [fetchApi, url]);
 
-  // function ingredientsList() {
-  //   const ingredients = [];
-  //   const numbers = [];
-  //   const size = 20;
-  //   for (let i = 1; i < size; i += 1) {
-  //     numbers.push(i);
-  //   }
-  //   numbers.forEach((numero) => {
-  //     ingredients.push({
-  //       name: recipe[`strIngredient${numero}`],
-  //       medida: recipe[`strMeasure${numero}`],
-  //     });
-  //   });
-  //   return ingredients;
-  // }
+  const ingredientsList = () => {
+    const ingredients = [];
+    const size = 20;
+
+    for (let i = 1; i < size; i++) {
+      if (recipe[`strIngredient${i}`] && recipe[`strMeasure${i}`]) {
+        const name = recipe[`strIngredient${i}`];
+        const measure = recipe[`strMeasure${i}`];  
+        ingredients.push({ name, measure });
+      }
+    }
+
+    console.log(ingredients)
+  
+    return ingredients;
+  }
 
   return (
     <div>
@@ -86,16 +87,16 @@ function RecipeInProgress(props) {
 
       <br />
 
-      {/* { ingredientsList.map((ingredient, index) => (
+      { ingredientsList().map((ingredient, index) => (
         <label
           htmlFor={ `input${index}` }
           data-testid={ `${index}-ingredient-step` }
           key={ index }
         >
           <input type="checkbox" name={ `input${index}` } />
-          { ingredient }
+          { ingredient.name }
         </label>
-      ))} */}
+      ))}
 
       <button
         type="button"
@@ -110,9 +111,7 @@ function RecipeInProgress(props) {
 
 RecipeInProgress.propTypes = {
   match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string,
-    }),
+    params: PropTypes.shape({ id: PropTypes.string, }),
   }).isRequired };
 
 export default RecipeInProgress;
