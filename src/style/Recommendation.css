@@ -1,0 +1,10 @@
+.recommendation-container {
+  display: flex;
+  overflow: auto;
+  scroll-behavior: smooth;
+  white-space: nowrap;
+}
+
+.recommendation-card img {
+  width: 50vw;
+}
