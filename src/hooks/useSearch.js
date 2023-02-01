@@ -73,9 +73,12 @@ function useSearch() {
   };
 
   useEffect(() => {
-    if (pathname === ('/drinks')) {
+    if (pathname === ('/drinks') || pathname.match(/\/meals\/\d+$/)) {
       setUrl('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-    } else setUrl('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    }
+    if (pathname === ('/meals') || pathname.match(/\/drinks\/\d+$/)) {
+      setUrl('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    }
   }, [pathname]);
 
   useEffect(() => {

@@ -1,0 +1,17 @@
+.recommendation-container {
+  display: flex;
+  overflow: auto;
+  scroll-behavior: smooth;
+  white-space: nowrap;
+}
+
+.recommendation-card img {
+  width: 50vw;
+}
+
+.start-recipe-btn {
+  bottom: 0;
+  left: calc(50vw - 5vw);
+  position: fixed;
+  width: 10vw;
+}
