@@ -81,8 +81,9 @@ function RecipeDetails(props) {
     if (localStorage.getItem('inProgressRecipes')) {
       const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
       if (inProgressRecipes[category]) setContinueBtn(true);
+      else setContinueBtn(false);
     }
-  }, [category]);
+  }, [category, location.pathname]);
 
   return (
     <>
