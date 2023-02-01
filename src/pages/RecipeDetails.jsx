@@ -7,6 +7,8 @@ import RecommendationCard from '../components/RecommendationCard';
 import '../style/RecipeDetails.css';
 
 import shareIcon from '../images/shareIcon.svg';
+import whiteHeart from '../images/whiteHeartIcon.svg';
+import blackHeart from '../images/blackHeartIcon.svg';
 
 const copy = require('clipboard-copy');
 
@@ -24,6 +26,9 @@ function RecipeDetails(props) {
   const [showStartRecipeBtn, setShowStartRecipeBtn] = useState(true);
   const [continueBtn, setContinueBtn] = useState(false);
   const [shared, setShared] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [favoritesLocalStorage,
+    setFavoritesLocalStorage] = useState(localStorage.getItem('favoriteRecipes'));
   const { searchResult } = useContext(SearchContext);
   const YT = 32;
   const MAX_RECOMENDATION = 6;
@@ -39,6 +44,14 @@ function RecipeDetails(props) {
     const isDone = doneRecipes.find((doneRecipe) => doneRecipe.id === id);
     if (isDone) setShowStartRecipeBtn(false);
   }
+
+  useEffect(() => {
+    if (localStorage.getItem('favoriteRecipes')) {
+      const favorites = [...JSON.parse(localStorage.getItem('favoriteRecipes'))];
+      const favorite = favorites.find((favRecipe) => favRecipe.id === id);
+      if (favorite) setIsFavorite(true);
+    }
+  }, [id, favoritesLocalStorage]);
 
   const fetchApi = useCallback(async () => {
     const response = await fetch(url);
@@ -96,12 +109,13 @@ function RecipeDetails(props) {
       name: recipe[`str${keyName}`],
       image: recipe[`str${keyName}Thumb`],
     };
-    console.log(favorite);
+
     if (localStorage.getItem('favoriteRecipes')) {
       favorites = [...JSON.parse(localStorage.getItem('favoriteRecipes'))];
     }
     favorites.push(favorite);
     localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
+    setFavoritesLocalStorage(localStorage.getItem('favoriteRecipes'));
   };
 
   return (
@@ -159,13 +173,13 @@ function RecipeDetails(props) {
             setShared(true);
           } }
         />
-        <button
-          type="button"
+        <img
+          src={ isFavorite ? blackHeart : whiteHeart }
+          alt="share"
+          role="presentation"
           data-testid="favorite-btn"
           onClick={ handleFavorites }
-        >
-          Add to Favorites
-        </button>
+        />
       </div>
       { shared && <small>Link copied!</small> }
       <div className="recommendation-container">
