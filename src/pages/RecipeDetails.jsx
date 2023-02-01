@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import SearchContext from '../context/SearchContext';
 import RecommendationCard from '../components/RecommendationCard';
 
-import '../style/Recommendation.css';
+import '../style/RecipeDetails.css';
 
 function RecipeDetails(props) {
   const { match } = props;
@@ -111,6 +111,13 @@ function RecipeDetails(props) {
               recipe={ recomendation }
             />))}
       </div>
+      <button
+        className="start-recipe-btn"
+        type="button"
+        data-testid="start-recipe-btn"
+      >
+        Start Recipe
+      </button>
     </>
   );
 }
