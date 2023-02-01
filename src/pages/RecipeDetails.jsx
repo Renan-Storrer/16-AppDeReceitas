@@ -6,6 +6,10 @@ import RecommendationCard from '../components/RecommendationCard';
 
 import '../style/RecipeDetails.css';
 
+import shareIcon from '../images/shareIcon.svg';
+
+const copy = require('clipboard-copy');
+
 function RecipeDetails(props) {
   const { match } = props;
   const { id } = match.params;
@@ -18,6 +22,7 @@ function RecipeDetails(props) {
   const [recCategory, setRecCategory] = useState('');
   const [showStartRecipeBtn, setShowStartRecipeBtn] = useState(true);
   const [continueBtn, setContinueBtn] = useState(false);
+  const [shared, setShared] = useState(false);
   const { searchResult } = useContext(SearchContext);
   const YT = 32;
   const MAX_RECOMENDATION = 6;
@@ -114,17 +119,21 @@ function RecipeDetails(props) {
           title="recipe-video"
           width="420"
           height="315"
-          src={ `https://www.youtube.com/embed/${recipe?.strYoutube.slice(YT)}` }
+          src={ `http://www.youtube.com/embed/${recipe?.strYoutube.slice(YT)}` }
           data-testid="video"
         /> }
       </div>
       <div>
-        <button
-          type="button"
+        <img
+          src={ shareIcon }
+          alt="share"
+          role="presentation"
           data-testid="share-btn"
-        >
-          Share
-        </button>
+          onClick={ () => {
+            copy(`http://localhost:3000${location.pathname}`);
+            setShared(true);
+          } }
+        />
         <button
           type="button"
           data-testid="favorite-btn"
@@ -132,6 +141,7 @@ function RecipeDetails(props) {
           Add to Favorites
         </button>
       </div>
+      { shared && <small>Link copied!</small> }
       <div className="recommendation-container">
         { recomendations
           .map((recomendation, i) => (
