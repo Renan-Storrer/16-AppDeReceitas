@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import SearchContext from '../context/SearchContext';
 import RecommendationCard from '../components/RecommendationCard';
 
@@ -10,6 +10,7 @@ function RecipeDetails(props) {
   const { match } = props;
   const { id } = match.params;
   const location = useLocation();
+  const history = useHistory();
   const [url, setUrl] = useState('');
   const [recipe, setRecipe] = useState({});
   const [category, setCategory] = useState('');
@@ -22,14 +23,13 @@ function RecipeDetails(props) {
   const MAX_RECOMENDATION = 6;
 
   let recomendations = [];
-  let doneRecipes = [];
 
   if (searchResult[recCategory]) {
     recomendations = searchResult[recCategory].slice(0, MAX_RECOMENDATION);
   }
 
   if (localStorage.getItem('doneRecipes')) {
-    doneRecipes = [...JSON.parse(localStorage.getItem('doneRecipes'))];
+    const doneRecipes = [...JSON.parse(localStorage.getItem('doneRecipes'))];
     const isDone = doneRecipes.find((doneRecipe) => doneRecipe.id === id);
     if (isDone) setShowStartRecipeBtn(false);
   }
@@ -132,6 +132,7 @@ function RecipeDetails(props) {
           className="start-recipe-btn"
           type="button"
           data-testid="start-recipe-btn"
+          onClick={ () => history.push(`${location.pathname}/in-progress`) }
         >
           { continueBtn ? 'Continue Recipe' : 'Start Recipe' }
         </button>)}
