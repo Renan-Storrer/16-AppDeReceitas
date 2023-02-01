@@ -16,8 +16,9 @@ function RecipeDetails(props) {
   const location = useLocation();
   const history = useHistory();
   const [url, setUrl] = useState('');
-  const [recipe, setRecipe] = useState({});
+  const [recipe, setRecipe] = useState();
   const [category, setCategory] = useState('');
+  const [ingredients, setIngredients] = useState('');
   const [keyName, setKeyName] = useState('');
   const [recCategory, setRecCategory] = useState('');
   const [showStartRecipeBtn, setShowStartRecipeBtn] = useState(true);
@@ -63,15 +64,18 @@ function RecipeDetails(props) {
     if (url) fetchApi();
   }, [fetchApi, url]);
 
-  const ingredients = [];
-
-  for (let i = 1; i < 100; i += 1) {
-    const ingredient = recipe[`strIngredient${i}`];
-    const measure = recipe[`strMeasure${i}`];
-    if (ingredient) {
-      ingredients.push({ ingredient, measure });
-    } else break;
-  }
+  useEffect(() => {
+    if (recipe) {
+      const recipeIngredients = [];
+      for (let i = 1; i < 100; i += 1) {
+        const ingredient = recipe[`strIngredient${i}`];
+        const measure = recipe[`strMeasure${i}`];
+        if (ingredient) recipeIngredients.push({ ingredient, measure });
+        else break;
+      }
+      setIngredients(recipeIngredients);
+    }
+  }, [recipe]);
 
   useEffect(() => {
     if (localStorage.getItem('inProgressRecipes')) {
@@ -82,47 +86,48 @@ function RecipeDetails(props) {
 
   return (
     <>
-      <div>
-        <img
-          src={ recipe[`str${keyName}Thumb`] }
-          alt="recipe"
-          data-testid="recipe-photo"
-        />
-        <h2
-          data-testid="recipe-title"
-        >
-          { recipe[`str${keyName}`] }
-        </h2>
-        <h3
-          data-testid="recipe-category"
-        >
-          { recipe.strCategory }
-          { category === 'drinks' && <small>{ ` (${recipe.strAlcoholic})` }</small> }
-        </h3>
-        <ul>
-          { ingredients.map((ingredient, i) => (
-            <li
-              key={ i }
-              data-testid={ `${i}-ingredient-name-and-measure` }
-            >
-              <strong>{ingredient.measure}</strong>
-              { ingredient.measure && ' of ' }
-              {ingredient.ingredient}
-            </li>))}
-        </ul>
-        <p
-          data-testid="instructions"
-        >
-          { recipe.strInstructions }
-        </p>
-        { category === 'meals' && recipe.strYoutube && <iframe
-          title="recipe-video"
-          width="420"
-          height="315"
-          src={ `http://www.youtube.com/embed/${recipe?.strYoutube.slice(YT)}` }
-          data-testid="video"
-        /> }
-      </div>
+      { ingredients && (
+        <div>
+          <img
+            src={ recipe[`str${keyName}Thumb`] }
+            alt="recipe"
+            data-testid="recipe-photo"
+          />
+          <h2
+            data-testid="recipe-title"
+          >
+            { recipe[`str${keyName}`] }
+          </h2>
+          <h3
+            data-testid="recipe-category"
+          >
+            { recipe.strCategory }
+            { category === 'drinks' && <small>{ ` (${recipe.strAlcoholic})` }</small> }
+          </h3>
+          <ul>
+            { ingredients.map((ingredient, i) => (
+              <li
+                key={ i }
+                data-testid={ `${i}-ingredient-name-and-measure` }
+              >
+                <strong>{ingredient.measure}</strong>
+                { ingredient.measure && ' of ' }
+                {ingredient.ingredient}
+              </li>))}
+          </ul>
+          <p
+            data-testid="instructions"
+          >
+            { recipe.strInstructions }
+          </p>
+          { category === 'meals' && recipe.strYoutube && <iframe
+            title="recipe-video"
+            width="420"
+            height="315"
+            src={ `http://www.youtube.com/embed/${recipe?.strYoutube.slice(YT)}` }
+            data-testid="video"
+          /> }
+        </div>)}
       <div>
         <img
           src={ shareIcon }
