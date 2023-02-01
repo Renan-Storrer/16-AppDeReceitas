@@ -50,6 +50,7 @@ function RecipeDetails(props) {
       const favorites = [...JSON.parse(localStorage.getItem('favoriteRecipes'))];
       const favorite = favorites.find((favRecipe) => favRecipe.id === id);
       if (favorite) setIsFavorite(true);
+      else setIsFavorite(false);
     }
   }, [id, favoritesLocalStorage]);
 
@@ -110,11 +111,18 @@ function RecipeDetails(props) {
       image: recipe[`str${keyName}Thumb`],
     };
 
-    if (localStorage.getItem('favoriteRecipes')) {
+    if (!isFavorite) {
+      if (localStorage.getItem('favoriteRecipes')) {
+        favorites = [...JSON.parse(localStorage.getItem('favoriteRecipes'))];
+      }
+      favorites.push(favorite);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
+    } else {
       favorites = [...JSON.parse(localStorage.getItem('favoriteRecipes'))];
+      const favorites2 = favorites.filter((fav) => fav.id !== id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favorites2));
     }
-    favorites.push(favorite);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
+
     setFavoritesLocalStorage(localStorage.getItem('favoriteRecipes'));
   };
 
@@ -149,6 +157,26 @@ function RecipeDetails(props) {
                 {ingredient.ingredient}
               </li>))}
           </ul>
+          <div>
+            <img
+              src={ shareIcon }
+              alt="share"
+              role="presentation"
+              data-testid="share-btn"
+              onClick={ () => {
+                copy(`http://localhost:3000${location.pathname}`);
+                setShared(true);
+              } }
+            />
+            <img
+              src={ isFavorite ? blackHeart : whiteHeart }
+              alt="share"
+              role="presentation"
+              data-testid="favorite-btn"
+              onClick={ handleFavorites }
+            />
+          </div>
+          { shared && <small>Link copied!</small> }
           <p
             data-testid="instructions"
           >
@@ -162,26 +190,6 @@ function RecipeDetails(props) {
             data-testid="video"
           /> }
         </div>)}
-      <div>
-        <img
-          src={ shareIcon }
-          alt="share"
-          role="presentation"
-          data-testid="share-btn"
-          onClick={ () => {
-            copy(`http://localhost:3000${location.pathname}`);
-            setShared(true);
-          } }
-        />
-        <img
-          src={ isFavorite ? blackHeart : whiteHeart }
-          alt="share"
-          role="presentation"
-          data-testid="favorite-btn"
-          onClick={ handleFavorites }
-        />
-      </div>
-      { shared && <small>Link copied!</small> }
       <div className="recommendation-container">
         { recomendations
           .map((recomendation, i) => (
