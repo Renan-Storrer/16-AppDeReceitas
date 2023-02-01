@@ -15,14 +15,22 @@ function RecipeDetails(props) {
   const [category, setCategory] = useState('');
   const [keyName, setKeyName] = useState('');
   const [recCategory, setRecCategory] = useState('');
+  const [showStartRecipeBtn, setShowStartRecipeBtn] = useState(true);
   const { searchResult } = useContext(SearchContext);
   const YT = 32;
   const MAX_RECOMENDATION = 6;
 
   let recomendations = [];
+  let doneRecipes = [];
 
   if (searchResult[recCategory]) {
     recomendations = searchResult[recCategory].slice(0, MAX_RECOMENDATION);
+  }
+
+  if (localStorage.getItem('doneRecipes')) {
+    doneRecipes = [...JSON.parse(localStorage.getItem('doneRecipes'))];
+    const isDone = doneRecipes.find((doneRecipe) => doneRecipe.id === id);
+    if (isDone) setShowStartRecipeBtn(false);
   }
 
   const fetchApi = useCallback(async () => {
@@ -111,13 +119,14 @@ function RecipeDetails(props) {
               recipe={ recomendation }
             />))}
       </div>
-      <button
-        className="start-recipe-btn"
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        Start Recipe
-      </button>
+      { showStartRecipeBtn && (
+        <button
+          className="start-recipe-btn"
+          type="button"
+          data-testid="start-recipe-btn"
+        >
+          Start Recipe
+        </button>)}
     </>
   );
 }
