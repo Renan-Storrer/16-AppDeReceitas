@@ -16,6 +16,7 @@ function RecipeDetails(props) {
   const [keyName, setKeyName] = useState('');
   const [recCategory, setRecCategory] = useState('');
   const [showStartRecipeBtn, setShowStartRecipeBtn] = useState(true);
+  const [continueBtn, setContinueBtn] = useState(false);
   const { searchResult } = useContext(SearchContext);
   const YT = 32;
   const MAX_RECOMENDATION = 6;
@@ -66,6 +67,13 @@ function RecipeDetails(props) {
       ingredients.push({ ingredient, measure });
     } else break;
   }
+
+  useEffect(() => {
+    if (localStorage.getItem('inProgressRecipes')) {
+      const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (inProgressRecipes[category]) setContinueBtn(true);
+    }
+  }, [category]);
 
   return (
     <>
@@ -125,7 +133,7 @@ function RecipeDetails(props) {
           type="button"
           data-testid="start-recipe-btn"
         >
-          Start Recipe
+          { continueBtn ? 'Continue Recipe' : 'Start Recipe' }
         </button>)}
     </>
   );
