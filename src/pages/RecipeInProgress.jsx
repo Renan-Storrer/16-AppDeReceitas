@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import IngredientCard from '../components/IngredientCard';
 
 function RecipeInProgress(props) {
   const { match: { params: { id } } } = props;
@@ -43,10 +44,16 @@ function RecipeInProgress(props) {
         ingredients.push({ name, measure });
       }
     }
-    // console.log(ingredients);
 
     return ingredients;
   };
+
+  // const handleCheckboxChange = ({ target }) => {
+  //   const newCheckboxStates = [...checked];
+  //   newCheckboxStates[target.value].checked = !newCheckboxStates[target.value].checked;
+  //   setchecked(newCheckboxStates);
+  //   console.log(newCheckboxStates[target.value]);
+  // };
 
   return (
     <div>
@@ -87,14 +94,11 @@ function RecipeInProgress(props) {
       <br />
 
       { ingredientsList().map((ingredient, index) => (
-        <label
-          htmlFor={ `input${index}` }
-          data-testid={ `${index}-ingredient-step` }
-          key={ index }
-        >
-          <input type="checkbox" name={ `input${index}` } />
-          { ingredient.name }
-        </label>
+        <IngredientCard
+          ingredient={ ingredient }
+          key={ `input${index}` }
+          index={ index }
+        />
       ))}
 
       <button
