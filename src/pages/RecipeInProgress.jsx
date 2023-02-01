@@ -36,18 +36,17 @@ function RecipeInProgress(props) {
     const ingredients = [];
     const size = 20;
 
-    for (let i = 1; i < size; i++) {
+    for (let i = 1; i < size; i += 1) {
       if (recipe[`strIngredient${i}`] && recipe[`strMeasure${i}`]) {
         const name = recipe[`strIngredient${i}`];
-        const measure = recipe[`strMeasure${i}`];  
+        const measure = recipe[`strMeasure${i}`];
         ingredients.push({ name, measure });
       }
     }
+    // console.log(ingredients);
 
-    console.log(ingredients)
-  
     return ingredients;
-  }
+  };
 
   return (
     <div>
@@ -111,7 +110,7 @@ function RecipeInProgress(props) {
 
 RecipeInProgress.propTypes = {
   match: PropTypes.shape({
-    params: PropTypes.shape({ id: PropTypes.string, }),
+    params: PropTypes.shape({ id: PropTypes.string }),
   }).isRequired };
 
 export default RecipeInProgress;
