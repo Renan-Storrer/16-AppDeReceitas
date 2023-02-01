@@ -118,6 +118,20 @@ function RecipeDetails(props) {
           data-testid="video"
         /> }
       </div>
+      <div>
+        <button
+          type="button"
+          data-testid="share-btn"
+        >
+          Share
+        </button>
+        <button
+          type="button"
+          data-testid="favorite-btn"
+        >
+          Add to Favorites
+        </button>
+      </div>
       <div className="recommendation-container">
         { recomendations
           .map((recomendation, i) => (
