@@ -10,7 +10,8 @@ function DoneRecipeCard(props) {
 
   const { recipe, index } = props;
   const { id, tags } = recipe;
-  const firstTags = tags.slice(0, 2);
+
+  const firstTags = tags?.slice(0, 2) || [];
 
   return (
     <div>
