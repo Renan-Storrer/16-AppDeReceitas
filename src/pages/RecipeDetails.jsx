@@ -39,11 +39,13 @@ function RecipeDetails(props) {
     recomendations = searchResult[recCategory].slice(0, MAX_RECOMENDATION);
   }
 
-  if (localStorage.getItem('doneRecipes')) {
-    const doneRecipes = [...JSON.parse(localStorage.getItem('doneRecipes'))];
-    const isDone = doneRecipes.find((doneRecipe) => doneRecipe.id === id);
-    if (isDone) setShowStartRecipeBtn(false);
-  }
+  useEffect(() => {
+    if (localStorage.getItem('doneRecipes')) {
+      const doneRecipes = [...JSON.parse(localStorage.getItem('doneRecipes'))];
+      const isDone = doneRecipes.find((doneRecipe) => doneRecipe.id === id);
+      if (isDone) setShowStartRecipeBtn(false);
+    }
+  }, [id]);
 
   useEffect(() => {
     if (localStorage.getItem('favoriteRecipes')) {
