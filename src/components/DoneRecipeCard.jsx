@@ -18,8 +18,8 @@ function DoneRecipeCard(props) {
       <h3
         data-testid={ `${index}-horizontal-top-text` }
       >
-        { recipe.type === 'meal' && `${recipe.nationality} - ` }
-        { recipe.category }
+        { recipe.type === 'meal' && `${recipe.nationality} - ${recipe.category}` }
+        { recipe?.alcoholicOrNot }
       </h3>
       <h3
         data-testid={ `${index}-horizontal-name` }
@@ -36,9 +36,9 @@ function DoneRecipeCard(props) {
         alt="share"
         role="presentation"
         data-testid={ `${index}-horizontal-share-btn` }
-        onClick={ () => {
-          copy('http://localhost:3000');
-        } }
+        // onClick={ () => {
+        //   copy('http://localhost:3000');
+        // } }
       />
       { firstTags.map((tag) => (
         <span
