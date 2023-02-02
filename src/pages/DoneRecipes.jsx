@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import DoneRecipeCard from '../components/DoneRecipeCard';
 
 function DoneRecipes() {
-  const doneRecipes = localStorage.getItem('doneRecipes') || [];
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
 
   return (
     <div>

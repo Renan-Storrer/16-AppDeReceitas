@@ -6,6 +6,7 @@ import shareIcon from '../images/shareIcon.svg';
 function DoneRecipeCard(props) {
   const { recipe, index } = props;
   const { tags } = recipe;
+  const firstTags = tags.slice(0, 2);
 
   return (
     <div>
@@ -17,6 +18,7 @@ function DoneRecipeCard(props) {
       <h3
         data-testid={ `${index}-horizontal-top-text` }
       >
+        { recipe.type === 'meal' && `${recipe.nationality} - ` }
         { recipe.category }
       </h3>
       <h3
@@ -38,10 +40,10 @@ function DoneRecipeCard(props) {
           copy('http://localhost:3000');
         } }
       />
-      { tags.map((tag, i) => (
+      { firstTags.map((tag) => (
         <span
           key={ tag }
-          data-testid={ `${i}-${tag}-horizontal-tag` }
+          data-testid={ `${index}-${tag}-horizontal-tag` }
         >
           { tag }
         </span>
