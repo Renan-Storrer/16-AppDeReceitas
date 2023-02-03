@@ -49,7 +49,7 @@ function DoneRecipes() {
         index={ i }
         recipe={ doneRecipe }
         doneOrFav="done"
-        handleFavorites={ () => {} }
+        handleFavorites=""
       />))}
     </div>
   );
