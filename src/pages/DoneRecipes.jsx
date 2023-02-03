@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
 
-import DoneRecipeCard from '../components/DoneRecipeCard';
+import DoneOrFavoriteRecipeCard from '../components/DoneOrFavoriteRecipeCard';
 
 function DoneRecipes() {
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
@@ -44,10 +44,12 @@ function DoneRecipes() {
           All
         </button>
       </div>
-      { filteredRecipes.map((doneRecipe, i) => (<DoneRecipeCard
+      { filteredRecipes.map((doneRecipe, i) => (<DoneOrFavoriteRecipeCard
         key={ `done-recipe-card-${i}` }
         index={ i }
         recipe={ doneRecipe }
+        doneOrFav="done"
+        handleFavorites=""
       />))}
     </div>
   );
