@@ -3,15 +3,16 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import shareIcon from '../images/shareIcon.svg';
+import blackHeart from '../images/blackHeartIcon.svg';
 
-import '../style/DoneRecipeCard.css';
+import '../style/DoneOrFavoriteRecipeCard.css';
 
 const copy = require('clipboard-copy');
 
-function DoneRecipeCard(props) {
+function DoneOrFavoriteRecipeCard(props) {
   const [shared, setShared] = useState(false);
 
-  const { recipe, index } = props;
+  const { recipe, index, doneOrFav, handleFavorites } = props;
   const { id, tags } = recipe;
   const history = useHistory();
   const recipeUrl = `http://localhost:3000/${recipe.type}s/${id}`;
@@ -21,9 +22,9 @@ function DoneRecipeCard(props) {
   return (
     <div>
       <img
-        className="done-recipe-img"
+        className={ `${doneOrFav}-recipe-img` }
         src={ recipe.image }
-        alt={ `done-recipe-${index}` }
+        alt={ `${doneOrFav}-recipe-${index}` }
         data-testid={ `${index}-horizontal-image` }
         role="presentation"
         onClick={ () => history.push(`/${recipe.type}s/${id}`) }
@@ -56,6 +57,14 @@ function DoneRecipeCard(props) {
           setShared(true);
         } }
       />
+      { doneOrFav === 'favorite' && (
+        <img
+          src={ blackHeart }
+          alt="share"
+          role="presentation"
+          data-testid={ `${index}-horizontal-favorite-btn` }
+          onClick={ () => handleFavorites(id) }
+        />) }
       <br />
       { shared && <small>Link copied!</small> }
       <br />
@@ -71,9 +80,11 @@ function DoneRecipeCard(props) {
   );
 }
 
-DoneRecipeCard.propTypes = {
+DoneOrFavoriteRecipeCard.propTypes = {
   recipe: PropTypes.shape({}),
   index: PropTypes.number,
+  doneOrFav: PropTypes.string,
+  handleFavorites: PropTypes.func,
 }.isRequired;
 
-export default DoneRecipeCard;
+export default DoneOrFavoriteRecipeCard;
