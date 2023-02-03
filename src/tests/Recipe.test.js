@@ -177,7 +177,7 @@ describe('Testes da página de Receitas de Comida', () => {
     }, 3000);
   });
 
-  it('Verifica se direciona corretamente para a página de detalhes ao clicar em uma receita', async () => {
+  it('Verifica se direciona corretamente para a página de detalhes ao clicar em uma receita de comida', async () => {
     global.fetch = jest.fn().mockResolvedValue({
       json: jest.fn().mockResolvedValue(meals),
     });
@@ -188,21 +188,25 @@ describe('Testes da página de Receitas de Comida', () => {
       history.push('/meals');
     });
 
-    let firstRecipe = await screen.findByTestId(firstCardName);
+    const firstRecipe = await screen.findByTestId(firstCardName);
 
     userEvent.click(firstRecipe);
 
     expect(history.location.pathname).toBe('/meals/52977');
+  });
 
+  it('Verifica se direciona corretamente para a página de detalhes ao clicar em uma receita de bebida', async () => {
     global.fetch = jest.fn().mockResolvedValue({
       json: jest.fn().mockResolvedValue(drinks),
     });
+
+    const { history } = renderWithRouterAndContext(<App />);
 
     act(() => {
       history.push('/drinks');
     });
 
-    firstRecipe = await screen.findByTestId(firstCardName);
+    const firstRecipe = await screen.findByTestId(firstCardName);
 
     userEvent.click(firstRecipe);
 
